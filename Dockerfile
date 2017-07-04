@@ -1,24 +1,25 @@
-FROM php:7.0-cli
+FROM php:7.1.6-fpm
 MAINTAINER Hivinau GRAFFE <hivinau.graffe@hotmail.fr>
 
-RUN echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+# update machine
+RUN apt-get update
 
 # Packages
-RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y \
+## Mongo
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini 
+  
+## Others
+RUN apt-get install -y \
     libmcrypt-dev \
     php-pear \
     wget \
     curl \
-    git \
   && rm -r /var/lib/apt/lists/*
 
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    
-# Mongo
-RUN pecl install mongodb-1.2.8 
-ADD php/mongodb.ini /usr/local/etc/php/conf.d/mongodb.ini
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/compose
 
 # Set up the application directory
 WORKDIR /app
