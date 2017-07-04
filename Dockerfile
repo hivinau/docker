@@ -6,8 +6,8 @@ RUN apt-get update
 
 # Packages
 ## Mongo
-RUN pecl install mongodb \
-    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini 
+RUN pecl install mongodb 
+RUN echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
   
 ## Others
 RUN apt-get install -y \
