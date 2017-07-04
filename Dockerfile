@@ -20,7 +20,7 @@ RUN apt-get install -y \
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/compose
+RUN mv composer.phar /usr/local/bin/composer
 
 # Set up the application directory
 WORKDIR /app
