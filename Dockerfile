@@ -5,10 +5,6 @@ MAINTAINER Hivinau GRAFFE <hivinau.graffe@hotmail.fr>
 RUN apt-get update
 
 # Packages
-## Mongo
-RUN pecl install mongodb 
-RUN echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
-  
 ## Others
 RUN apt-get install -y \
     libmcrypt-dev \
@@ -17,6 +13,10 @@ RUN apt-get install -y \
     wget \
     curl \
   && rm -r /var/lib/apt/lists/*
+  
+## Mongo
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
