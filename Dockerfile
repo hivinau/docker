@@ -12,6 +12,7 @@ RUN apt-get install -y \
     php-pear \
     wget \
     curl \
+    git \
   && rm -r /var/lib/apt/lists/*
   
 ## Mongo
