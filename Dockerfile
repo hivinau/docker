@@ -14,10 +14,6 @@ RUN apt-get update && \
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer about
-    
-# mongo
-RUN apt-get install -y  libsasl2-dev\
-                        libssl-dev
 
 RUN pecl install mongo &&\
     echo "extension=mongo.so" > /usr/local/etc/php/conf.d/mongo.ini
