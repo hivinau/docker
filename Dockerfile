@@ -12,6 +12,7 @@ RUN pecl install mongodb \
 ## Others
 RUN apt-get install -y \
     libmcrypt-dev \
+    libssl-dev \
     php-pear \
     wget \
     curl \
