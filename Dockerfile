@@ -10,15 +10,6 @@ RUN apt-get update && \
     curl \
     git \
   && rm -r /var/lib/apt/lists/*
-  
-# PHP Extensions
-RUN docker-php-ext-install mcrypt zip mbstring
-
-# Memory Limit
-RUN echo "memory_limit=1024M" > /usr/local/etc/php/conf.d/memory-limit.ini
-
-# Time Zone
-RUN echo "date.timezone=${PHP_TIMEZONE:-UTC}" > /usr/local/etc/php/conf.d/date_timezone.ini
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
