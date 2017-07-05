@@ -13,6 +13,7 @@ RUN apt-get install -y \
     wget \
     curl \
     git \
+    unzip \
   && rm -r /var/lib/apt/lists/*
   
 ## Mongo
