@@ -15,6 +15,10 @@ RUN apt-get install -y \
     git \
     unzip \
   && rm -r /var/lib/apt/lists/*
+
+## Enable mysqli and pdo extension in php.ini
+RUN docker-php-ext-install mysqli && \
+    docker-php-ext-install pdo_mysql
   
 ## Mongo
 RUN pecl install mongodb \
