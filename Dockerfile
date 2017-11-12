@@ -14,6 +14,9 @@ RUN apt-get install -y \
     curl \
     git \
     unzip \
+    mysql-server \
+    mysql-client \
+    libmysqlclient-dev \
   && rm -r /var/lib/apt/lists/*
 
 ## Enable mysqli and pdo extension in php.ini
