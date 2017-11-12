@@ -28,5 +28,12 @@ RUN pecl install mongodb \
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# Create sql structure
+ADD t4u.sql /tmp/t4u.sql
+RUN /bin/bash -c "/usr/bin/mysqld_safe --skip-grant-tables &" && \
+  sleep 5 && \
+  mysql -u root -e "CREATE DATABASE t4u" && \
+  mysql -u root mydb < /tmp/t4u.sql
+
 # Set up the application directory
 WORKDIR /app
