@@ -19,10 +19,7 @@ RUN apt-get install -y \
 ## Enable mysqli and pdo extension in php.ini
 RUN docker-php-ext-install mysqli && \
     docker-php-ext-install pdo_mysql && \
-    docker-php-ext-install gd && \
-    docker-php-ext-enable mysqli && \
-    docker-php-ext-enable pdo_mysql && \
-    docker-php-ext-enable gd
+    docker-php-ext-install gd
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
