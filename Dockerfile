@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y git
 
-RUN apt-get update && apt-get -y install autoconf libzip-dev 
+RUN apt-get update && apt-get -y install autoconf libzip-dev
 
 RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
 
@@ -18,8 +18,6 @@ ARG GROUP_ID
 RUN groupadd -f --gid $GROUP_ID user
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 USER user
-
-ADD xdebug.ini /etc/php/conf.d/
 
 WORKDIR /var/www
 
