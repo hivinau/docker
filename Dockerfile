@@ -1,28 +1,26 @@
-FROM php:7.1.6-fpm
-MAINTAINER Hivinau GRAFFE <hivinau.graffe@hotmail.fr>
+FROM php:7.4-fpm
 
-# update machine
-RUN apt-get update
+RUN apt-get update && apt-get install -y git
 
-# Packages
-## Others
-RUN apt-get install -y \
-    libmcrypt-dev \
-    libssl-dev \
-    php-pear \
-    wget \
-    curl \
-    git \
-    unzip \
-  && rm -r /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install autoconf libzip-dev
 
-## Enable mysqli and pdo extension in php.ini
-RUN docker-php-ext-install mysqli && \
-    docker-php-ext-install pdo_mysql
+RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
 
-# Composer
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
+RUN docker-php-ext-install zip
 
-# Set up the application directory
-WORKDIR /app
+RUN pecl install grpc && docker-php-ext-enable grpc
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+
+ARG USER_ID
+ARG GROUP_ID
+
+RUN groupadd -f --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+USER user
+
+ADD xdebug.ini /etc/php/conf.d/
+
+WORKDIR /var/www
+
+EXPOSE 9000
